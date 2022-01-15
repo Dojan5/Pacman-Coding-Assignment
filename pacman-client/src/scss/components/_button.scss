@@ -1,0 +1,36 @@
+button.button {
+    $color: orange;
+    $dark-color: darken($color, 20%);
+    position: relative;
+    background-color: $color;
+    color: white;
+    padding: 1rem;
+    border: none;
+    outline: none;
+    box-shadow: inset -4px -4px 0px 0px $dark-color;
+    margin: 1rem;
+    cursor: pointer;
+    &:hover, &:active {
+        box-shadow: inset 4px 4px 0 0 $dark-color;
+    }
+    &::before, &::after {
+        background-color: darken($dark-color, 20%);
+        position: absolute;
+        display: block;
+        content: '';
+        z-index: -1;
+    }
+    &::before {
+        
+        width: 100%;
+        height: calc(100% + 8px);
+        top: -4px;
+        left: 0;
+    }
+    &::after {
+        height: 100%;
+        width: calc(100% + 8px);
+        top: 0px;
+        left: -4px;
+    }
+}
