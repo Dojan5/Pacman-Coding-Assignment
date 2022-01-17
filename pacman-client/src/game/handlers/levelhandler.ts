@@ -1,5 +1,5 @@
 import { GameObject, IGameObject } from "../objects/abstracts/gameobject";
-import { Nest, SpawnPoint, Wall, Point, Powerup } from "../objects/";
+import { Nest, SpawnPoint, Wall, Point, Powerup, EnemyType } from "../objects/";
 
 export default class LevelHandler {
     constructor() {
@@ -20,7 +20,16 @@ export default class LevelHandler {
                     case 3: gameObjects.push(new Powerup(objectIndex * 8, rowIndex * 8));
                         break;
                     case 4:
-                        gameObjects.push(new Nest(objectIndex * 8, rowIndex * 8));
+                        gameObjects.push(new Nest(objectIndex * 8, rowIndex * 8, EnemyType.Blinky));
+                        break;
+                    case 5:
+                        gameObjects.push(new Nest(objectIndex * 8, rowIndex * 8, EnemyType.Pinky));
+                        break;
+                    case 6:
+                        gameObjects.push(new Nest(objectIndex * 8, rowIndex * 8, EnemyType.Inky));
+                        break;
+                    case 7:
+                        gameObjects.push(new Nest(objectIndex * 8, rowIndex * 8, EnemyType.Clyde));
                         break;
                     case 9:
                         gameObjects.push(new SpawnPoint((objectIndex * 8) - (8 / 2), rowIndex * 8));
@@ -51,10 +60,10 @@ const defaultLevel = [
     [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1],
     [0, 0, 0, 0, 0, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 2, 1, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 1, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 2, 1, 1, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 1, 2, 1, 0, 0, 0, 0, 0],
-    [1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 4, 4, 4, 4, 4, 4, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1],
-    [1, 3, 2, 2, 2, 2, 2, 0, 0, 0, 1, 4, 4, 4, 4, 4, 4, 1, 0, 0, 0, 2, 2, 2, 2, 2, 3, 1],
-    [1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 4, 4, 4, 4, 4, 4, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1],
+    [0, 0, 0, 0, 0, 1, 2, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 2, 1, 0, 0, 0, 0, 0],
+    [1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1],
+    [1, 3, 2, 2, 2, 2, 2, 0, 0, 0, 1, 0, 4, 5, 6, 7, 0, 1, 0, 0, 0, 2, 2, 2, 2, 2, 3, 1],
+    [1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1],
     [0, 0, 0, 0, 0, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 1, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 1, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 0, 0, 0, 0, 0],

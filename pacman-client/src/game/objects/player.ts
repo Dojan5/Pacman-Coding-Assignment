@@ -22,6 +22,7 @@ export class Player extends GameObject {
     direction: Direction;
     nextDirection: Direction;
     spawnPoint: SpawnPoint;
+    velocity: number = 1;
 
     setDirection(direction: Direction) {
         this.nextDirection = direction;
@@ -38,16 +39,16 @@ export class Player extends GameObject {
     update(collisionSystem: CollisionSystem) {
         switch (this.nextDirection) {
             case Direction.Up:
-                this.setPosition(this.pos.x, this.pos.y - 1);
+                this.setPosition(this.pos.x, this.pos.y - this.velocity);
                 break;
             case Direction.Down:
-                this.setPosition(this.pos.x, this.pos.y + 1);
+                this.setPosition(this.pos.x, this.pos.y + this.velocity);
                 break;
             case Direction.Left:
-                this.setPosition(this.pos.x - 1, this.pos.y);
+                this.setPosition(this.pos.x - this.velocity, this.pos.y);
                 break;
             case Direction.Right:
-                this.setPosition(this.pos.x + 1, this.pos.y);
+                this.setPosition(this.pos.x + this.velocity, this.pos.y);
                 break;
             case Direction.None:
             default: break;
@@ -95,8 +96,15 @@ export class Player extends GameObject {
 
         if (response.aInB) {
             response.b.eat();
-            this.state = PlayerState.PoweredUp;
+            this.activatePowerUp(8000);
         }
+    }
+
+    activatePowerUp(buffTimer: number = 5000) {
+        this.state = PlayerState.PoweredUp;
+        setTimeout(() => {
+            this.state = PlayerState.Alive;
+        }, buffTimer);
     }
 
     handleWallCollisions(response: SAT.Response): void {
@@ -115,6 +123,9 @@ export class Player extends GameObject {
             context.fillStyle = "limegreen";
         }
 
-        context.fillRect(this.pos.x, this.pos.y, this.size, this.size);
+        //context.fillRect(this.pos.x, this.pos.y, this.size, this.size);
+        context.beginPath();
+        context.arc(this.pos.x + 4, this.pos.y + 4, 4, 0, Math.PI * 2, false);
+        context.fill();
     }
 }

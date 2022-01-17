@@ -1,7 +1,7 @@
 import { CollisionHandler } from "./handlers/collisionhandler";
 import InputHandler from "./handlers/inputhandler";
 import LevelHandler from "./handlers/levelhandler";
-import { SpawnPoint } from "./objects";
+import { Nest, SpawnPoint } from "./objects";
 import { GameObject, IGameObject } from "./objects/abstracts/gameobject";
 import { Player } from "./objects/player";
 import { System as CollisionSystem } from "detect-collisions";
@@ -66,6 +66,15 @@ export default class Game implements IGame {
 
         //Spawn the player
         this.player.spawn();
+
+        //Get the enemies
+        let nests = this.gameObjects.filter(m => m.constructor.name === "Nest") as Nest[];
+        let enemies = nests.map(m => m.enemy);
+        //Add enemies to collision and object pool
+        enemies.forEach(m => {
+            this.collisionSystem.insert(m);
+            this.gameObjects.push(m);
+        });
 
         //Instantiate collision handler
         this.gameObjects.forEach(m => this.collisionSystem.insert(m));
