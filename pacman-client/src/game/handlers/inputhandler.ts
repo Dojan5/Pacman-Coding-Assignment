@@ -1,7 +1,7 @@
 import { Direction } from "../objects/abstracts/gameobject";
 import { Player } from "../objects/player";
 
-export default class InputHandler {
+export class InputHandler {
     constructor(player: Player) {
         this.player = player;
         this.initializeEvents();

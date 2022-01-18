@@ -1,6 +1,4 @@
-import { CollisionHandler } from "./handlers/collisionhandler";
-import InputHandler from "./handlers/inputhandler";
-import LevelHandler from "./handlers/levelhandler";
+import { ScoreHandler, InputHandler, LevelHandler } from "./handlers";
 import { Nest, SpawnPoint } from "./objects";
 import { GameObject, IGameObject } from "./objects/abstracts/gameobject";
 import { Player } from "./objects/player";
@@ -37,6 +35,7 @@ export default class Game implements IGame {
     
     inputHandler: InputHandler | null = null;
     levelHandler: LevelHandler = new LevelHandler();
+    scoreHandler: ScoreHandler = new ScoreHandler(1000, 500);
     collisionSystem: CollisionSystem;
     gameObjects: GameObject[] = [];
     player: Player | null = null;
@@ -58,7 +57,7 @@ export default class Game implements IGame {
         this.gameObjects = [...level];
         //Initiate player
         let spawnpoint = this.gameObjects.find(m => m.constructor.name === "SpawnPoint") as SpawnPoint;
-        this.player = new Player(spawnpoint);
+        this.player = new Player(spawnpoint, this.scoreHandler);
         this.gameObjects.push(this.player);
         //Initiate input handler
         this.inputHandler = new InputHandler(this.player) as InputHandler;
@@ -93,6 +92,10 @@ export default class Game implements IGame {
         this.delta = time / this.lastTime;
         if(this.delta > this.interval) {
             this.lastTime = time - (this.delta % this.interval)
+        }
+
+        if(this.state === GameState.Over) {
+
         }
         
         //Update game state

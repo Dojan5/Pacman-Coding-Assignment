@@ -1,6 +1,7 @@
 import { SpawnPoint } from '.';
 import { System as CollisionSystem } from 'detect-collisions';
 import { GameObject, Direction, IGameObject } from './abstracts/gameobject';
+import { ScoreHandler } from '../handlers';
 
 enum PlayerState {
     Alive,
@@ -9,14 +10,16 @@ enum PlayerState {
 };
 
 export class Player extends GameObject {
-    constructor(spawnPoint: SpawnPoint) {
+    constructor(spawnPoint: SpawnPoint, scoreHandler: ScoreHandler) {
         super(spawnPoint.pos.x, spawnPoint.pos.y);
 
         this.spawnPoint = spawnPoint;
         this.state = PlayerState.Dead;
         this.direction = Direction.None;
         this.nextDirection = Direction.None;
+        this.scoreHandler = scoreHandler;
     }
+    scoreHandler: ScoreHandler;
     state: PlayerState;
     colour = "orange";
     direction: Direction;
@@ -80,13 +83,21 @@ export class Player extends GameObject {
         }
     }
     handleEnemyCollisions(response: SAT.Response) {
-        throw new Error('Method not implemented.');
+        this.scoreHandler.change(-50);
+        this.die();
+    }
+
+    die() {
+        this.state = PlayerState.Dead;
+        this.setPosition(-1, -1);
+        setTimeout(() => this.spawn(), 1500);
     }
 
     handlePointCollisions(response: SAT.Response): void {
         if (response.b.isEaten) { return; }
 
         if (response.aInB) {
+            this.scoreHandler.change(1);
             response.b.eat();
         }
     }
@@ -95,6 +106,7 @@ export class Player extends GameObject {
         if (response.b.isEaten) { return; }
 
         if (response.aInB) {
+            this.scoreHandler.change(50);
             response.b.eat();
             this.activatePowerUp(8000);
         }

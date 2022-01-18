@@ -1,7 +1,7 @@
 import { GameObject, IGameObject } from "../objects/abstracts/gameobject";
 import { Nest, SpawnPoint, Wall, Point, Powerup, EnemyType } from "../objects/";
 
-export default class LevelHandler {
+export class LevelHandler {
     constructor() {
     }
 
