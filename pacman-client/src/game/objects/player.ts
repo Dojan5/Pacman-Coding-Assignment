@@ -39,6 +39,10 @@ export class Player extends GameObject {
         this.state = PlayerState.Alive;
     }
 
+    /**
+     * Updates player, requires reference to the collision system
+     * @param collisionSystem 
+     */
     update(collisionSystem: CollisionSystem) {
         switch (this.nextDirection) {
             case Direction.Up:

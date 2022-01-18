@@ -5,6 +5,11 @@ export class LevelHandler {
     constructor() {
     }
 
+    /**
+     * Builds level based on the provided level array
+     * @param number[][]
+     * @returns array of game objects 
+     */
     buildLevel(level: number[][] = defaultLevel): GameObject[] {
         let gameObjects: GameObject[] = [];
 

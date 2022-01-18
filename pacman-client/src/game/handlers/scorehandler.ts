@@ -15,6 +15,12 @@ export class ScoreHandler {
         clearInterval(this.timer as NodeJS.Timer);
     }
 
+
+    /**
+     * Sets a timer that reduces the final score by a set amount each interval
+     * @param interval 
+     * @returns timer 
+     */
     private startTimer(interval: number): NodeJS.Timer {
         return setInterval(() => this.change(-1), interval);
     }

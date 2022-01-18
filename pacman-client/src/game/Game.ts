@@ -82,6 +82,7 @@ export default class Game implements IGame {
         this.main(0);
     }
     
+    //Main game loop, delta time not yet used
     main(time: number): void {
         //Initialise
         if(this.lastTime === null) {
@@ -110,6 +111,11 @@ export default class Game implements IGame {
     }
 
     
+
+    /**
+     * Clears the canvas, updates the game objects, and draws the subsequent frame to the canvas
+     * @param delta 
+     */
     update(delta: number): void {
         this.clear();
         this.gameObjects.forEach(o => o.update(this.collisionSystem));

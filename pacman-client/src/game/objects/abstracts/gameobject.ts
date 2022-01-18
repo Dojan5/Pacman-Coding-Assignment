@@ -22,10 +22,21 @@ export class GameObject extends Box implements IGameObject {
     
     size: number;
     isSolid: boolean = false;
+
+
+    /**
+     * Game object update method
+     * @param collisionSystem 
+     */
     update(collisionSystem: CollisionSystem): void {
 
     }
 
+
+    /**
+     * Game object draw method, renders the object to the provided canvas context when called
+     * @param context 
+     */
     draw(context: CanvasRenderingContext2D): void {
         throw new Error("Method not implemented.");
     }
